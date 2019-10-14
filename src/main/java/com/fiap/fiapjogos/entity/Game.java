@@ -1,6 +1,7 @@
 package com.fiap.fiapjogos.entity;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Game {
@@ -10,7 +11,7 @@ public class Game {
     private Category category;
     private LocalDate releaseDate;
     private String rating;
-    private List<Character> characterList;
+    private List<Character> characterList = new ArrayList<>();
 
     public Integer getId() {
         return id;

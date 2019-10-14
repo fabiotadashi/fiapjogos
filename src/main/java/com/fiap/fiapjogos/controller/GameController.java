@@ -1,8 +1,11 @@
 package com.fiap.fiapjogos.controller;
 
+import com.fiap.fiapjogos.dto.CreateGameDTO;
 import com.fiap.fiapjogos.dto.GameDTO;
+import com.fiap.fiapjogos.dto.SimpleGameDTO;
 import com.fiap.fiapjogos.entity.Category;
 import com.fiap.fiapjogos.entity.Game;
+import org.springframework.beans.BeanUtils;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -19,34 +22,46 @@ public class GameController {
     private List<Game> gameList = getGamesMock();
 
     @GetMapping
-    public List<GameDTO> getGameList(@RequestParam(required = false) String name) {
+    public List<SimpleGameDTO> getGameList(@RequestParam(required = false) String name) {
 
         return gameList.stream()
                 .filter(game -> name == null || game.getName().startsWith(name))
-                .map(GameDTO::new)
+                .map(SimpleGameDTO::new)
                 .collect(Collectors.toList());
     }
 
     @GetMapping("{gameId}")
     public GameDTO getGameById(@PathVariable Integer gameId){
-            return gameList.stream()
-                    .filter(game -> game.getId().equals(gameId))
-                    .map(GameDTO::new)
-                    .findFirst()
-                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+        Game game = findGameById(gameId);
+        return new GameDTO(game);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public GameDTO insertGame() {
+    public GameDTO insertGame(@RequestBody CreateGameDTO createGameDTO) {
         Game game = new Game();
         game.setId(gameList.size() + 1);
-        game.setName("Novo jogo");
-        game.setCategory(Category.OTHER);
-        game.setReleaseDate(LocalDate.now());
-        game.setRating("+18");
+        game.setName(createGameDTO.getName());
+        game.setCategory(createGameDTO.getCategory());
+        game.setReleaseDate(createGameDTO.getReleaseDate());
+        game.setRating(createGameDTO.getRating());
         gameList.add(game);
         return new GameDTO(game);
+    }
+
+    @PutMapping("{gameId}")
+    public GameDTO updateGame(@PathVariable Integer gameId,
+                              @RequestBody CreateGameDTO createGameDTO){
+        Game game = findGameById(gameId);
+        BeanUtils.copyProperties(createGameDTO, game);
+        return new GameDTO(game);
+    }
+
+    private Game findGameById(Integer gameId) {
+        return gameList.stream()
+                .filter(game -> game.getId().equals(gameId))
+                .findFirst()
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
     }
 
     private List<Game> getGamesMock() {
