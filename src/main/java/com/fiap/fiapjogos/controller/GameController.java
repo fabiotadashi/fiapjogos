@@ -3,7 +3,9 @@ package com.fiap.fiapjogos.controller;
 import com.fiap.fiapjogos.dto.GameDTO;
 import com.fiap.fiapjogos.entity.Category;
 import com.fiap.fiapjogos.entity.Game;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -25,7 +27,17 @@ public class GameController {
                 .collect(Collectors.toList());
     }
 
+    @GetMapping("{gameId}")
+    public GameDTO getGameById(@PathVariable Integer gameId){
+            return gameList.stream()
+                    .filter(game -> game.getId().equals(gameId))
+                    .map(GameDTO::new)
+                    .findFirst()
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
+    }
+
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public GameDTO insertGame() {
         Game game = new Game();
         game.setId(gameList.size() + 1);
