@@ -7,6 +7,7 @@ import com.fiap.fiapjogos.entity.Category;
 import com.fiap.fiapjogos.entity.Game;
 import com.fiap.fiapjogos.service.GameService;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
@@ -18,6 +19,9 @@ import java.util.stream.Collectors;
 
 @Service
 public class GameServiceImpl implements GameService {
+
+    @Value("${turma.fiap}")
+    private String turma;
 
     private List<Game> gameList = getGamesMock();
 
@@ -32,6 +36,7 @@ public class GameServiceImpl implements GameService {
     @Override
     public GameDTO getGameById(Integer gameId) {
         Game game = findGameById(gameId);
+        game.setName(game.getName() + " - " +turma);
         return new GameDTO(game);
     }
 
