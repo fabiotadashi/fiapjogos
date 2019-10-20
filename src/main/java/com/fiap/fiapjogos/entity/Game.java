@@ -30,6 +30,7 @@ public class Game {
     private String rating;
 
     @OneToMany
+    @JoinColumn(name = "game_id")
     private List<Character> characterList = new ArrayList<>();
 
     public Integer getId() {

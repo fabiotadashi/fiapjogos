@@ -13,6 +13,9 @@ public class Character {
     @Column
     private String name;
 
+    @ManyToOne
+    private Game game;
+
     public Integer getId() {
         return id;
     }
@@ -27,5 +30,13 @@ public class Character {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Game getGame() {
+        return game;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
     }
 }
