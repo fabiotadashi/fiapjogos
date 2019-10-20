@@ -2,13 +2,22 @@ package com.fiap.fiapjogos.dto;
 
 import com.fiap.fiapjogos.entity.Category;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PastOrPresent;
 import java.time.LocalDate;
 
 public class CreateGameDTO {
 
+    @NotNull
+    @NotBlank
     private String name;
+
     private Category category;
+
+    @PastOrPresent
     private LocalDate releaseDate;
+
     private String imageUrl;
     private String rating;
 

@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +37,7 @@ public class GameController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public GameDTO insertGame(@RequestBody CreateGameDTO createGameDTO) {
+    public GameDTO insertGame(@RequestBody @Valid CreateGameDTO createGameDTO) {
         return gameService.insertGame(createGameDTO);
     }
 
