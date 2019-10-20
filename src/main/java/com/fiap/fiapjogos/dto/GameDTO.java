@@ -15,6 +15,7 @@ public class GameDTO {
     private String name;
     private Category category;
     private LocalDate releaseDate;
+    private String imageUrl;
     private String rating;
     private List<CharacterDTO> characterList;
 
@@ -26,6 +27,7 @@ public class GameDTO {
         this.category = game.getCategory();
         this.releaseDate = game.getReleaseDate();
         this.rating = game.getRating();
+        this.imageUrl = game.getImageUrl();
         this.characterList = game.getCharacterList()
                                     .stream()
                                     .map(CharacterDTO::new)
@@ -78,5 +80,13 @@ public class GameDTO {
 
     public void setCharacterList(List<CharacterDTO> characterList) {
         this.characterList = characterList;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

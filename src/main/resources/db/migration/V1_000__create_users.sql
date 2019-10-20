@@ -1,0 +1,15 @@
+CREATE TABLE TB_GAME (
+  id           BIGINT AUTO_INCREMENT PRIMARY KEY,
+  name         VARCHAR(50) NOT NULL,
+  image_url     VARCHAR(50) NOT NULL,
+  category     VARCHAR(20) NOT NULL,
+  rating       VARCHAR(10),
+  release_date  TIMESTAMP
+);
+
+CREATE TABLE TB_CHARACTER (
+  id      BIGINT AUTO_INCREMENT PRIMARY KEY,
+  name    VARCHAR(50) NOT NULL,
+  game_id BIGINT,
+  FOREIGN KEY (game_id) REFERENCES TB_GAME (id)
+);

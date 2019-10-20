@@ -5,3 +5,10 @@ server:
 
 turma:
   fiap: 2TDSj
+
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:file:~/fiapdb;DB_CLOSE_ON_EXIT=FALSE;AUTO_RECONNECT=TRUE
+    username: fiap
+    password: fiap

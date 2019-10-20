@@ -9,6 +9,7 @@ public class CreateGameDTO {
     private String name;
     private Category category;
     private LocalDate releaseDate;
+    private String imageUrl;
     private String rating;
 
     public CreateGameDTO(){}
@@ -43,5 +44,13 @@ public class CreateGameDTO {
 
     public void setRating(String rating) {
         this.rating = rating;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

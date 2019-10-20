@@ -1,16 +1,35 @@
 package com.fiap.fiapjogos.entity;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table(name = "TB_GAME")
 public class Game {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @Column
     private String name;
+
+    @Column
+    private String imageUrl;
+
+    @Column
+    @Enumerated(EnumType.STRING)
     private Category category;
+
+    @Column
     private LocalDate releaseDate;
+
+    @Column
     private String rating;
+
+    @OneToMany
     private List<Character> characterList = new ArrayList<>();
 
     public Integer getId() {
@@ -59,5 +78,13 @@ public class Game {
 
     public void setCharacterList(List<Character> characterList) {
         this.characterList = characterList;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }
