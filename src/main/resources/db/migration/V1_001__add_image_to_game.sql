@@ -1,0 +1,1 @@
+alter table tb_game add column image_url VARCHAR(30) not null;

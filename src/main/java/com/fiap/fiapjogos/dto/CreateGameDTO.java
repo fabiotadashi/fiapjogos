@@ -2,14 +2,23 @@ package com.fiap.fiapjogos.dto;
 
 import com.fiap.fiapjogos.entity.Category;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PastOrPresent;
 import java.time.LocalDate;
 
 public class CreateGameDTO {
 
     private String name;
     private Category category;
+
+    @PastOrPresent
     private LocalDate releaseDate;
     private String rating;
+
+    @NotBlank
+    @NotNull(message = "Imagem obrigatória")
+    private String imageUrl;
 
     public CreateGameDTO(){}
 
@@ -43,5 +52,13 @@ public class CreateGameDTO {
 
     public void setRating(String rating) {
         this.rating = rating;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

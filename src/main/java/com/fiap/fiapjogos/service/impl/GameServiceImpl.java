@@ -51,6 +51,7 @@ public class GameServiceImpl implements GameService {
         game.setCategory(createGameDTO.getCategory());
         game.setReleaseDate(createGameDTO.getReleaseDate());
         game.setRating(createGameDTO.getRating());
+        game.setImageUrl(createGameDTO.getImageUrl());
         Game savedGame = repository.save(game);
         return new GameDTO(savedGame);
     }

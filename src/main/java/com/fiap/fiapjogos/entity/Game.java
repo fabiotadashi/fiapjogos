@@ -26,6 +26,9 @@ public class Game {
     @Column
     private String rating;
 
+    @Column
+    private String imageUrl;
+
     @OneToMany
     @JoinColumn(name = "game_id")
     private List<Character> characterList = new ArrayList<>();
@@ -76,5 +79,13 @@ public class Game {
 
     public void setCharacterList(List<Character> characterList) {
         this.characterList = characterList;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }

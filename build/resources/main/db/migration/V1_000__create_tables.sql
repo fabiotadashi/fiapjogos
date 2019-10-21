@@ -1,0 +1,14 @@
+CREATE TABLE TB_GAME (
+  id           INTEGER AUTO_INCREMENT PRIMARY KEY,
+  name         VARCHAR(50) NOT NULL,
+  category     VARCHAR(20) NOT NULL,
+  rating       VARCHAR(10),
+  release_date DATE
+);
+
+CREATE TABLE TB_CHARACTER (
+  id      INTEGER AUTO_INCREMENT PRIMARY KEY,
+  name    VARCHAR(50) NOT NULL,
+  game_id INTEGER,
+  FOREIGN KEY (game_id) REFERENCES TB_GAME (id)
+);
