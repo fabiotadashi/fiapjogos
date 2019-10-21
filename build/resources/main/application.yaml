@@ -4,4 +4,18 @@ server:
     context-path: /fiapjogos
 
 turma:
-  fiap: 2TDSj
+  fiap: 2TDSJ
+
+
+spring:
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:file:~/fiapdb;DB_CLOSE_ON_EXIT=FALSE;AUTO_RECONNECT=TRUE
+    username: fiap
+    password: fiap
+
+

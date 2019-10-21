@@ -5,8 +5,10 @@ import com.fiap.fiapjogos.dto.GameDTO;
 import com.fiap.fiapjogos.dto.SimpleGameDTO;
 import com.fiap.fiapjogos.entity.Category;
 import com.fiap.fiapjogos.entity.Game;
+import com.fiap.fiapjogos.repository.GameRepository;
 import com.fiap.fiapjogos.service.GameService;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -23,10 +25,12 @@ public class GameServiceImpl implements GameService {
     @Value("${turma.fiap}")
     private String turma;
 
-    private List<Game> gameList = getGamesMock();
+    @Autowired
+    private GameRepository repository;
 
     @Override
     public List<SimpleGameDTO> getGameList(String name) {
+        List<Game> gameList = repository.findAll();
         return gameList.stream()
                 .filter(game -> name == null || game.getName().startsWith(name))
                 .map(SimpleGameDTO::new)
@@ -43,62 +47,30 @@ public class GameServiceImpl implements GameService {
     @Override
     public GameDTO insertGame(CreateGameDTO createGameDTO) {
         Game game = new Game();
-        game.setId(gameList.get(gameList.size()-1).getId() + 1);
         game.setName(createGameDTO.getName());
         game.setCategory(createGameDTO.getCategory());
         game.setReleaseDate(createGameDTO.getReleaseDate());
         game.setRating(createGameDTO.getRating());
-        gameList.add(game);
-        return new GameDTO(game);
+        Game savedGame = repository.save(game);
+        return new GameDTO(savedGame);
     }
 
     @Override
     public GameDTO updateGame(Integer gameId, CreateGameDTO createGameDTO) {
         Game game = findGameById(gameId);
         BeanUtils.copyProperties(createGameDTO, game);
-        return new GameDTO(game);
+        Game updatedGame = repository.save(game);
+        return new GameDTO(updatedGame);
     }
 
     @Override
     public void deleteGame(Integer gameId) {
-        Game game = findGameById(gameId);
-        gameList.remove(game);
+        repository.deleteById(gameId);
     }
 
     private Game findGameById(Integer gameId) {
-        return gameList.stream()
-                .filter(game -> game.getId().equals(gameId))
-                .findFirst()
+        return repository.findById(gameId)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND));
-    }
-
-    private List<Game> getGamesMock() {
-        List<Game> gameList = new ArrayList<>();
-
-        Game game1 = new Game();
-        game1.setId(1);
-        game1.setName("Lolzin");
-        game1.setReleaseDate(LocalDate.now());
-        game1.setRating("Livre");
-        game1.setCategory(Category.RPG);
-        gameList.add(game1);
-
-        Game game2 = new Game();
-        game2.setId(2);
-        game2.setName("CS:GO");
-        game2.setReleaseDate(LocalDate.now());
-        game2.setRating("+12");
-        game2.setCategory(Category.ACTION);
-        gameList.add(game2);
-
-        Game game3 = new Game();
-        game3.setId(3);
-        game3.setName("Zelda");
-        game3.setReleaseDate(LocalDate.now());
-        game3.setRating("Livre");
-        game3.setCategory(Category.ADVENTURE);
-        gameList.add(game3);
-        return gameList;
     }
 
 }

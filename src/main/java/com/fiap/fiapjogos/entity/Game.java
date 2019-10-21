@@ -1,16 +1,33 @@
 package com.fiap.fiapjogos.entity;
 
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table(name = "TB_GAME")
 public class Game {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @Column
     private String name;
+
+    @Column
+    @Enumerated(EnumType.STRING)
     private Category category;
+
+    @Column
     private LocalDate releaseDate;
+
+    @Column
     private String rating;
+
+    @OneToMany
+    @JoinColumn(name = "game_id")
     private List<Character> characterList = new ArrayList<>();
 
     public Integer getId() {
