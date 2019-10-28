@@ -13,6 +13,12 @@ public class Character {
     @Column
     private String name;
 
+    @Column
+    private String imageUrl;
+
+    @ManyToOne
+    private Game game;
+
     public Integer getId() {
         return id;
     }
@@ -27,5 +33,21 @@ public class Character {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
+    public Game getGame() {
+        return game;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
     }
 }

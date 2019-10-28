@@ -1,0 +1,1 @@
+alter table tb_character add column image_url VARCHAR(30);
