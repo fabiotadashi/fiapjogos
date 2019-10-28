@@ -6,12 +6,14 @@ public class CharacterDTO {
 
     private Integer id;
     private String name;
+    private String imageUrl;
 
     public CharacterDTO(){}
 
     public CharacterDTO(Character character) {
         this.id = character.getId();
         this.name = character.getName();
+        this.imageUrl = character.getImageUrl();
     }
 
     public Integer getId() {
@@ -30,4 +32,11 @@ public class CharacterDTO {
         this.name = name;
     }
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 }
