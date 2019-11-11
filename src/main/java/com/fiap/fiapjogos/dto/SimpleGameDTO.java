@@ -1,20 +1,20 @@
 package com.fiap.fiapjogos.dto;
 
-import com.fiap.fiapjogos.entity.Category;
 import com.fiap.fiapjogos.entity.Game;
 
 public class SimpleGameDTO {
 
     private Integer id;
     private String name;
-    private Category category;
+    private String imageUrl;
 
-    public SimpleGameDTO(){}
+    public SimpleGameDTO() {
+    }
 
     public SimpleGameDTO(Game game) {
         this.id = game.getId();
         this.name = game.getName();
-        this.category = game.getCategory();
+        this.imageUrl = game.getImageUrl();
     }
 
     public Integer getId() {
@@ -33,11 +33,11 @@ public class SimpleGameDTO {
         this.name = name;
     }
 
-    public Category getCategory() {
-        return category;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 }
