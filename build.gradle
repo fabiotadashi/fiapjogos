@@ -23,5 +23,7 @@ dependencies {
 	implementation 'com.h2database:h2:1.4.200'
 	implementation 'org.flywaydb:flyway-core:5.2.4'
 
+	implmenentation 'org.postgresql:postgresql:9.4-1206-jdbc42'
+
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
